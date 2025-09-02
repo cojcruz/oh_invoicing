@@ -142,6 +142,77 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     dashboard.form = dashboardForm
 /**
+ * @see routes/web.php:17
+ * @route '/invoices'
+ */
+export const invoices = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: invoices.url(options),
+    method: 'get',
+})
+
+invoices.definition = {
+    methods: ["get","head"],
+    url: '/invoices',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:17
+ * @route '/invoices'
+ */
+invoices.url = (options?: RouteQueryOptions) => {
+    return invoices.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:17
+ * @route '/invoices'
+ */
+invoices.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: invoices.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:17
+ * @route '/invoices'
+ */
+invoices.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: invoices.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:17
+ * @route '/invoices'
+ */
+    const invoicesForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: invoices.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:17
+ * @route '/invoices'
+ */
+        invoicesForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: invoices.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:17
+ * @route '/invoices'
+ */
+        invoicesForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: invoices.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    invoices.form = invoicesForm
+/**
  * @see routes/settings.php:21
  * @route '/settings/appearance'
  */

@@ -2,19 +2,47 @@ import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
+import { dashboard, invoices } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
 import AppLogo from './app-logo';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
-];
+const mainNavItems: any = () => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        axios.get('/navigationQuery').then(response => {
+            setData(response.data);
+        });
+    }, []);
+
+    return data.map((item: any) => {
+        let icon: any = null;
+
+        switch (item.icon) {
+            case 'LayoutGrid':
+                icon = LayoutGrid;
+                break;
+            case 'BookOpen':
+                icon = BookOpen;
+                break;
+            case 'Folder':
+                icon = Folder;
+                break;
+            default:
+                icon = null;
+                break;
+        }
+        return {
+            title: item.name,
+            href: item.url,
+            icon: icon,
+        };
+    });
+};
 
 const footerNavItems: NavItem[] = [
     {
@@ -43,9 +71,8 @@ export function AppSidebar() {
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
-
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={mainNavItems()} />
             </SidebarContent>
 
             <SidebarFooter>

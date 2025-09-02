@@ -13,5 +13,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('invoices', function () {
+        return Inertia::render('invoices');
+    })->name('invoices');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/navigationQuery', function (Request $request) {
+        $navItems = DB::table('navigation')->get();
+
+        return $navItems->toJson();
+    });
+});
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

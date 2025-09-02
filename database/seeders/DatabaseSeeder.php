@@ -18,6 +18,13 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'role' => 'admin',
+            'password' => 'test',
+            'freshteams_id' => '123456',
         ]);
+        
+        $this->call(
+            NavItems::class
+        );
     }
 }
