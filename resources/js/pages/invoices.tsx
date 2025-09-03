@@ -11,6 +11,8 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+const invoiceItems: any = [];
+
 export default function Invoices() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -34,17 +36,17 @@ export default function Invoices() {
                         </thead>
                         <tbody>
                             {/* Loop through the invoices array and create a new row for each invoice */}
-                            {invoices.map((invoice) => (
-                                <tr key={invoice.id}>
+                            {invoiceItems.map((invoiceItem) => (
+                                <tr key={invoiceItem.id}>
                                     <td className="px-4 py-2"><input type="checkbox" /></td>
-                                    <td className="px-4 py-2">{invoice.invoice_number}</td>
-                                    <td className="px-4 py-2">{invoice.employee}</td>
-                                    <td className="px-4 py-2">{invoice.team}</td>
-                                    <td className="px-4 py-2">{invoice.date}</td>
+                                    <td className="px-4 py-2">{invoiceItem.invoice_number}</td>
+                                    <td className="px-4 py-2">{invoiceItem.employee}</td>
+                                    <td className="px-4 py-2">{invoiceItem.team}</td>
+                                    <td className="px-4 py-2">{invoiceItem.date}</td>
                                     <td className="px-4 py-2">
-                                        <button className="btn btn-secondary"><a href={`/invoices/${invoice.id}/edit`}>Edit</a></button>
-                                        <button className="btn btn-error"><a href={`/invoices/${invoice.id}/delete`}>Delete</a></button>
-                                        <button className="btn btn-primary"><a href={`/invoices/${invoice.id}/duplicate`}>Duplicate</a></button>
+                                        <button className="btn btn-secondary"><a href={`/invoices/${invoiceItem.id}/edit`}>Edit</a></button>
+                                        <button className="btn btn-error"><a href={`/invoices/${invoiceItem.id}/delete`}>Delete</a></button>
+                                        <button className="btn btn-primary"><a href={`/invoices/${invoiceItem.id}/duplicate`}>Duplicate</a></button>
                                     </td>
                                 </tr>
                             ))}
@@ -57,7 +59,6 @@ export default function Invoices() {
                 </div>
                 <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                </div>
                 </div>
                 <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                     <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
